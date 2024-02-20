@@ -1,19 +1,25 @@
-# from turtle import Turtle, Screen
-# from another_module import another_variable
-# franklin = Turtle()
-#
-# print(franklin)
-# franklin.shape("turtle")
-# franklin.color("brown")
-# franklin.forward(100)
-# franklin.left(90)
-# franklin.forward(50)
-# franklin.home()
-#
-#
-# my_screen = Screen()
-# print(my_screen.canvheight)
-# my_screen.exitonclick()
+from menu import Menu, MenuItem
+from coffee_maker import CoffeeMaker
+from money_machine import MoneyMachine
 
-# C:\Users\Mark\PycharmProjects\turtle_drawing\pythonProject day 16\.venv\Scripts\python.exe C:/Program Files/JetBrains/PyCharm Community Edition 2023.3.1/plugins/python-ce/helpers/pip-20.3.4-py2.py3-none-any.whl/pip install --no-index C:\Program Files\JetBrains\PyCharm Community Edition 2023.3.1\plugins\python-ce\helpers\pip-20.3.4-py2.py3-none-any.whl
-<pip install pretty
+money_machine = MoneyMachine()
+coffee_maker = CoffeeMaker()
+
+menu = Menu()
+
+is_on = True
+money_machine.report()
+coffee_maker.report()
+
+while is_on:
+    options = menu.get_items()
+    choice = input(f"What drink would you like? {options}")
+    if choice == "off":
+        is_on = False
+    elif choice == "report":
+        coffee_maker.report()
+        money_machine.report()
+    else:
+        drink = menu.find_drink(choice)
+        if coffee_maker.is_resource_sufficient(drink) and money_machine.make_payment(drink.cost):
+                coffee_maker.make_coffee(drink)
